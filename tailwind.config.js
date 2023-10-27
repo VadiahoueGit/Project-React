@@ -51,7 +51,11 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
         "card1":"#1691F7",
-        "card2":"#e61f75"
+        "card2":"#e61f75",
+        "card3":"#FFA800",
+        "card4":"#FF318A",
+        "card5":"#1F2F5C",
+        "card6":"hsl(var(--destructive))",
       },
       borderRadius: {
         lg: "var(--radius)",

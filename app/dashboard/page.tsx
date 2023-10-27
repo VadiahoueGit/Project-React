@@ -57,7 +57,7 @@ export default function page() {
               </div>
               <div className="">
                 <Typography className=" font-bold" variant="h2">
-                  29/40
+                  29
                 </Typography>
               </div>
             </div>

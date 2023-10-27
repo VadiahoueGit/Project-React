@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { AiFillEye } from "react-icons/ai"
 import { Typography } from '../../../components/ui/typography';
+import Link from "next/link"
 
 export type Payment = {
     id: string
@@ -70,12 +71,14 @@ export const columns: ColumnDef<Payment>[] = [
   
   {
     id: "actions",
-    header: "",
+    header: "Actions",
     cell: ({ row }) => {
       const payment = row.original
 
       return (
+        <Link href={"/dashboard/detail-client"}>
         <Button className="flex justify-items-center gap-2 bg-[#CCD9FF]"> <AiFillEye color="black"/> <Typography className="text-black font-bold" variant="small">Voir</Typography></Button>
+        </Link>
       )
     },
   },

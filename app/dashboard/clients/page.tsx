@@ -93,7 +93,7 @@ export default async function page() {
                 Filtrer
               </Typography>
 
-              <BsFilterSquare />
+              <BsFilterSquare size={25} />
             </div>
 
             <div className=" flex gap-4 items-center">
