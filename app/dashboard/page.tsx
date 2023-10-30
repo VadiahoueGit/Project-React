@@ -16,7 +16,7 @@ export default function page() {
     <div className="w-full p-8 mt-7">
       <div className="py-2">
         <Typography className="font-bold" variant="p">
-          Vue d ensemble
+          Vue d'ensemble
         </Typography>
       </div>
       <div className="grid grid-cols-3 gap-6">

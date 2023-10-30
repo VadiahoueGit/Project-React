@@ -50,7 +50,7 @@ export default function CardItems({color,...props}:Props) {
       </div>
 
       <div className="">
-        <Typography className=" font-bold" variant="h3">
+        <Typography className=" font-extrabold" variant="h3">
         {props.total}
         </Typography>
       </div>
