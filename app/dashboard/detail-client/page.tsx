@@ -6,12 +6,12 @@ import Image from "next/image";
 import ImageClient from "@/public/assets/img/company/pexels-godisable-jacob-718978.jpg";
 import Link from "next/link";
 import { PiIdentificationCardBold } from "react-icons/pi";
-import { FaBirthdayCake } from "react-icons/fa";
+import { FaBirthdayCake, FaQuestionCircle } from "react-icons/fa";
 import { MdOutlineLocalPostOffice } from "react-icons/md";
 import { BsBalloonHeart } from "react-icons/bs";
 import { PiGenderIntersexBold } from "react-icons/pi";
 import { PiBagSimple } from "react-icons/pi";
-import { VscLocation } from "react-icons/vsc";
+import { VscBellDot, VscLocation } from "react-icons/vsc";
 import { MdOutlineBusinessCenter } from "react-icons/md";
 import CardItems from "@/components/pages/card-items";
 import { DataTable } from "../clients/data-table";
@@ -132,10 +132,78 @@ export const payments: Payment[] = [
 export default function page() {
   return (
     <div className="w-full p-5">
-      <Typography className="font-bold" variant="h5">
-        {" "}
-        Détail client
-      </Typography>
+         <nav className="border-b py-4  flex items-center justify-between">
+          <div className="pl-10">
+            <Typography className="font-bold" variant="h5">
+              Détail client
+            </Typography>
+
+            <nav className="flex pt-2" aria-label="Breadcrumb">
+              <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                <li className="inline-flex items-center">
+                  <a
+                    href="#"
+                    className="inline-flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 dark:hover:text-white"
+                  >
+                    Dashboard
+                  </a>
+                </li>
+                <li>
+                  <div className="flex items-center">
+                    <svg
+                      className="w-3 h-3 text-gray-400 mx-1"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 6 10"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m1 9 4-4-4-4"
+                      />
+                    </svg>
+                    <a
+                      href="#"
+                      className="ml-1 text-sm font-medium text-gray-500  md:ml-2 dark:text-gray-400 dark:hover:text-white"
+                    >
+                      Clients
+                    </a>
+                  </div>
+                </li>
+                <li aria-current="page">
+                  <div className="flex items-center">
+                    <svg
+                      className="w-3 h-3 text-gray-400 mx-1"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 6 10"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m1 9 4-4-4-4"
+                      />
+                    </svg>
+                    <span className="ml-1 text-sm font-medium text-[#D89D37]  md:ml-2 dark:text-gray-400">
+                      Détail client
+                    </span>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+          </div>
+
+          <div className="flex gap-2 pr-40">
+            <VscBellDot color="blue" size={20} />
+            <FaQuestionCircle size={20} />
+          </div>
+        </nav>
       <div className=" w-full flex">
         <div className="w-3/5 h-auto">
           <div className="  flex items-center">

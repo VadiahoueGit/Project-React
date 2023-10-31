@@ -16,6 +16,9 @@ import { DataTable } from "./data-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { BsFilterSquare } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
+import { VscBellDot } from "react-icons/vsc";
+import { FaQuestionCircle } from "react-icons/fa";
+import companyLogo from '@/public/assets/img/company/MicrosoftTeams-image (5).png';
 
 async function getData(): Promise<Payment[]> {
   // Fetch data from your API here.
@@ -59,9 +62,79 @@ export default async function page() {
   return (
     <div>
       <div className="w-full p-5">
-        <Typography className="font-bold" variant="h5">
-          Clients
-        </Typography>
+        <nav className="border-b py-4  flex items-center justify-between">
+          <div className="pl-10">
+            <Typography className="font-bold" variant="h5">
+              Clients
+            </Typography>
+
+            <nav className="flex pt-2" aria-label="Breadcrumb">
+              <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                <li className="inline-flex items-center">
+                  <a
+                    href="#"
+                    className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
+                  >
+                    Dashboard
+                  </a>
+                </li>
+                <li>
+                  <div className="flex items-center">
+                    <svg
+                      className="w-3 h-3 text-gray-400 mx-1"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 6 10"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m1 9 4-4-4-4"
+                      />
+                    </svg>
+                    <a
+                      href="#"
+                      className="ml-1 text-sm font-medium text-[#D89D37] hover:text-[#D89D37] md:ml-2 dark:text-gray-400 dark:hover:text-white"
+                    >
+                      Clients
+                    </a>
+                  </div>
+                </li>
+                <li aria-current="page">
+                  <div className="flex items-center">
+                    <svg
+                      className="w-3 h-3 text-gray-400 mx-1"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 6 10"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m1 9 4-4-4-4"
+                      />
+                    </svg>
+                    <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
+                      Détail client
+                    </span>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+          </div>
+
+          <div className="flex gap-2 pr-40">
+            <VscBellDot color="blue" size={20} />
+            <FaQuestionCircle size={20} />
+          </div>
+        </nav>
+
         <div className="flex items-center justify-between pt-4">
           <div className=" p-2 w-1/2 flex items-center rounded-xl">
             <Select>
@@ -78,7 +151,7 @@ export default async function page() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            
+
             <Input type="search" placeholder="Recherche" />
             <div className="bg-[#CCD9FF]  w-20 h-10 rounded-md">
               <div className="p-3.5 pt-2">

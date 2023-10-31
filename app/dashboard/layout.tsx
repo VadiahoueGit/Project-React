@@ -43,16 +43,7 @@ const Layout = ({children}: LayoutProps) => {
                 <NavItems text="Déconnexion" icons={BiLogOut}/>
             </div>
             <div className="w-full ">
-                <nav className="border-b py-4  flex items-center justify-between">
-                    <div className="pl-10">
-                        <Typography className="font-bold" variant="h5">Bienvenue,</Typography>
-                        <Typography variant="small">sur votre tableau de bord</Typography>
-                    </div>
-                    <div className="w-1/2">
-                        <Input placeholder="Recherche"/>
-                    </div>
-                    <div className="flex gap-2 pr-10">< VscBellDot/><FaQuestionCircle/></div>
-                </nav>
+              
                     {children}
             </div>
         </div>
