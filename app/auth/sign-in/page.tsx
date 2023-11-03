@@ -90,7 +90,7 @@ function Page() {
               variant="secondary"
       
               value="submit"
-              className=" hover:text-blue-600 mx-auto mt-5 w-full flex justify-center"
+              className=" hover:text-blue-600 mx-auto bg-blue-600 mt-5 w-full flex justify-center"
             >
               {/* <Loader2 className="mr-2 h-4 w-4 animate-spin" /> */}
               Se connecter

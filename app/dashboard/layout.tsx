@@ -24,8 +24,8 @@ const Layout = ({children}: LayoutProps) => {
     return (
         <div className="w-full flex">
             <div className=" w-1/4 flex flex-col h-screen  text-center border-r">
-                <div className="mt-8 mb-20 flex  justify-center">
-                    <Image src={companyLogo} alt="logo du site" width={90} height={90}/>
+                <div className="mt-16 mb-20 flex  justify-center">
+                    <Image src={companyLogo} alt="logo du site" width={200} height={200}/>
                 </div>
                 <div className=" gap-6 flex flex-col h-full">
                     <NavItems

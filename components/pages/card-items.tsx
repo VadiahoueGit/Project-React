@@ -44,7 +44,7 @@ export default function CardItems({color,...props}:Props) {
   return (
     <Link href={props.url ?? "/"}>
     <div className={cn( colorCustomBg,`rounded-2xl px-4 py-8`)}>
-    <div className=" items-center grid grid-cols-2 gap-4">
+    <div className=" items-center grid grid-cols-1 gap-4">
       <div className= {cn( colorCustom,`h-14 w-14  flex items-center justify-center rounded-full`)}>
         <props.icon color="white" size={25}/>
       </div>

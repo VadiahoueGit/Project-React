@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { TbReportAnalytics } from "react-icons/tb";
 import { GoPeople } from "react-icons/go";
 import { RiVoiceprintFill } from "react-icons/ri";
@@ -14,8 +14,20 @@ import { clsx } from "clsx";
 import { Input } from "@/components/ui/input";
 import { VscBellDot } from "react-icons/vsc";
 import { FaQuestionCircle } from "react-icons/fa";
+import { getDashboardInfo } from "@/services/dashboard-services";
 
-export default function page() {
+export default function Page() {
+  const [data, setData] = useState<{
+    nombre_total_clients: string;
+    nombre_total_affaires_nouvelles: string;
+    nombre_sinistres_en_cours: string;
+  }>();
+  useEffect(() => {
+    getDashboardInfo().then((res) => {
+      console.log(res?.data);
+      setData(res?.data);
+    });
+  }, []);
   return (
     <>
       <nav className="border-b py-4  flex items-center justify-between">
@@ -25,9 +37,7 @@ export default function page() {
           </Typography>
           <Typography variant="small">sur votre tableau de bord</Typography>
         </div>
-        <div className="w-1/2">
-          <Input placeholder="Recherche" />
-        </div>
+     
         <div className="flex gap-2 pr-40">
           <VscBellDot color="blue" size={20} />
           <FaQuestionCircle size={20} />
@@ -47,7 +57,7 @@ export default function page() {
               title="Clients"
               subtitle="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur cupiditate dolore. Ad ducimus distinctio pariatur?"
               icon={GoPeople}
-              total="102"
+              total={data?.nombre_total_clients}
             />
             <CardItems
               url="/dashboard"
@@ -55,7 +65,7 @@ export default function page() {
               title="Affaires nouvelles"
               subtitle="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur cupiditate dolore. Ad ducimus distinctio pariatur?"
               icon={MdOutlineBusinessCenter}
-              total="90"
+              total={data?.nombre_total_affaires_nouvelles}
             />
 
             <div className="bg-[#FFEFE7] col-span-2 px-4 py-4 rounded-lg">
@@ -78,7 +88,7 @@ export default function page() {
                 </div>
                 <div className="">
                   <Typography className=" font-bold" variant="h2">
-                    29
+                   {data?.nombre_sinistres_en_cours}
                   </Typography>
                 </div>
               </div>
@@ -86,7 +96,7 @@ export default function page() {
           </div>
           <div className="bg-[#35487E] rounded-lg p-5 ">
             <Typography className="text-white" variant="p">
-              Intelligence Artificielle (IA)
+              Intelligences Artificielles (IA)
             </Typography>
             <div className="mt-5">
               <div className="flex items-center gap-2">
@@ -127,7 +137,9 @@ export default function page() {
                 </Typography>
               </div>
             </div>
-            <Button variant={"outline"} className="mt-5 ">Traiter</Button>
+            <Button variant={"outline"} className="mt-5 ">
+              Traiter
+            </Button>
           </div>
         </div>
       </div>

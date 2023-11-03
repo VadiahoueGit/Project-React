@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Typography } from "../../../components/ui/typography";
 import Image from "next/image";
 import ImageClient from "@/public/assets/img/company/pexels-godisable-jacob-718978.jpg";
 import Link from "next/link";
-import { PiIdentificationCardBold } from "react-icons/pi";
+import { PiHandCoins, PiIdentificationCardBold } from "react-icons/pi";
 import { FaBirthdayCake, FaQuestionCircle } from "react-icons/fa";
 import { MdOutlineLocalPostOffice } from "react-icons/md";
 import { BsBalloonHeart } from "react-icons/bs";
@@ -21,41 +21,39 @@ import { ColumnDef } from "@tanstack/react-table";
 import { AiFillEye } from "react-icons/ai";
 import { Checkbox } from "@/components/ui/checkbox";
 import { BsFilterSquare } from "react-icons/bs";
-import { BsSearch } from "react-icons/bs";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
+import { BsClipboard } from "react-icons/bs";
+import { FaDownLong } from "react-icons/fa6";
+import { LuFileX2 } from "react-icons/lu";
 
-const columns: ColumnDef<Payment>[] = [
+import { Input } from "@/components/ui/input";
+import { getIndicateurClient } from "@/services/indicateur-services";
+import { getDetailClientPhysique } from "@/services/detailsPersonnePhysique";
+import { truncateText } from "@/lib/utils";
+
+const columns: ColumnDef<any>[] = [
   {
-    accessorKey: "id",
-    header: "Contrats",
+    accessorKey: "numero_contrat",
+    header: "Numero de police",
   },
   {
-    accessorKey: "nomPrenoms",
-    header: "Nom et prénoms",
+    accessorKey: "risque",
+    header: "Produit",
   },
   {
-    accessorKey: "nationality",
+    accessorKey: "nom_prenom_client",
+    header: "Client",
+  },
+
+  {
+    accessorKey: "date_effet",
     header: "Date effet",
   },
 
   {
-    accessorKey: "telNumber",
+    accessorKey: "date_expiration",
     header: "Date fin",
   },
 
-  {
-    accessorKey: "anciennete",
-    header: "Branches",
-  },
 
   {
     id: "actions",
@@ -129,7 +127,18 @@ export const payments: Payment[] = [
     anciennete: "Non-vie",
   },
 ];
-export default function page() {
+export default function Page() {
+
+  const [data, setData] = useState<any>();
+  useEffect(() => {
+    getDetailClientPhysique().then((res) => {
+      console.log(res?.data);
+      setData(res?.data);
+    });
+  }, []);
+  console.log(data);
+  
+
   return (
     <div className="w-full p-5">
          <nav className="border-b py-4  flex items-center justify-between">
@@ -217,38 +226,38 @@ export default function page() {
                 />
               </div>
               <Typography variant="p" className="font-bold">
-                Mariam Touré
+                {data?.nom} {data?.prenom}
               </Typography>
               <Typography
                 className="text-center text-sm text-muted-foreground"
                 variant="small"
               >
-                Habite, abidjan, koumassi
+                {data?.adresse}
               </Typography>
               <Typography
-                className="text-sm text-muted-foreground"
+                className="text-sm text-muted-foreground" 
                 variant="small"
               >
-                0707070707
+                {data?.tel}
               </Typography>
             </div>
 
             <div className="flex flex-col w-48 gap-5 px-2">
               <div className="flex gap-2">
                 <PiIdentificationCardBold />
-                <Typography variant="small">Ivoirienne</Typography>
+                <Typography variant="small">{data?.nationalite}</Typography>
               </div>
               <div className="flex gap-2">
                 <BsBalloonHeart />
-                <Typography variant="small">Célibataire</Typography>
+                <Typography variant="small">{data?.statut_matrimonial}</Typography>
               </div>
               <div className="flex gap-2">
                 <MdOutlineLocalPostOffice />
-                <Typography variant="small">m.kone@gmail.com</Typography>
+                <Typography variant="small">{data?.email && truncateText(data?.email,15)}</Typography>
               </div>
               <div className="flex gap-2">
                 <FaBirthdayCake />
-                <Typography variant="small">12 Decembre 2022</Typography>
+                <Typography variant="small">{data?.date_naissance}</Typography>
               </div>
             </div>
 
@@ -259,23 +268,23 @@ export default function page() {
               </div>
               <div className="flex gap-2">
                 <PiGenderIntersexBold />
-                <Typography variant="small">Féminin</Typography>
+                <Typography variant="small">{data?.sexe}</Typography>
               </div>
               <div className="flex gap-2">
                 <PiBagSimple />
-                <Typography variant="small">Architecte</Typography>
+                <Typography variant="small">{data?.profession}</Typography>
               </div>
               <div className="flex gap-2">
                 <VscLocation />
-                <Typography variant="small">Née à Bouaké</Typography>
+                <Typography variant="small">{data?.lieu_de_naissance}</Typography>
               </div>
             </div>
           </div>
           <div>
-            <div className="w-full p-5">
+            <div className="w-full pt-5 py-5">
               <div className="flex items-center justify-between pt-4">
                 <Typography className="font-bold" variant="h5">
-                  Clients
+                  Contrats
                 </Typography>
                 <div className="flex w-1/2 gap-4 items-center mr-7">
                   <div className="flex items-center gap-2 ">
@@ -314,8 +323,8 @@ export default function page() {
               </div>
             </div>
 
-            <div className="container items-start">
-              <DataTable columns={columns} data={payments} />
+            <div className="items-start pr-4">
+              <DataTable columns={columns} data={data?.liste_contrats ?? []} />
             </div>
           </div>
         </div>
@@ -325,36 +334,39 @@ export default function page() {
             <CardItems
               color="card3"
               title="Contrats"
-              icon={MdOutlineBusinessCenter}
-              total="45"
+              icon={BsClipboard}
+              total={data?.indicateurs?.nombre_contrats}
             />
             <CardItems
               color="card5"
               title="Règlement encaissé"
-              icon={MdOutlineBusinessCenter}
-              total="17"
+              icon={PiHandCoins}
+              total={data?.indicateurs?.nombre_encaissements}
             />
             <CardItems
               color="card4"
               title="Nombres total de sinistre"
-              icon={MdOutlineBusinessCenter}
-              total="45"
+              icon={LuFileX2}
+              total={data?.indicateurs?.nombre_contrats}
             />
             <CardItems
               color="card5"
               title="Nombres total de prestation"
-              icon={MdOutlineBusinessCenter}
-              total="45"
+              icon={BsClipboard}
+              total={data?.indicateurs?.nombre_total_prestations_vie}
             />
             <CardItems
               color="card6"
               title="Taux d'engagements"
-              icon={MdOutlineBusinessCenter}
-              total="45"
+              icon={FaDownLong}
+              total={(data?.indicateurs?.staturation_client)+'%'}
             />
           </div>
         </div>
       </div>
     </div>
   );
+
+ 
+  
 }

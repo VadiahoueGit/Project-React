@@ -47,26 +47,31 @@ export type Payment = {
 export const columns: ColumnDef<Payment>[] = [
 
     {
-        accessorKey: "id",
+        accessorKey: "numero_client",
         header: "ID unique",
       },
       {
-        accessorKey: "nomPrenoms",
+        accessorKey: "noms_client",
         header: "Nom et prénoms",
       },
       {
-        accessorKey: "nationality",
-        header: "Nationalité",
+        accessorKey: "type_Client",
+        header: "Type client",
       },
   
       {
-        accessorKey: "telNumber",
-        header: "Numéro de téléphone",
+        accessorKey: "adresse",
+        header: "Adresse",
       },
   
       {
-        accessorKey: "anciennete",
-        header: "Ancieneté",
+        accessorKey: "email",
+        header: "Email",
+      },
+  
+      {
+        accessorKey: "tel",
+        header: "Télephone",
       },
   
   {

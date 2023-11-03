@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { Typography } from "../../../components/ui/typography";
 import { Input } from "@/components/ui/input";
 import {
@@ -18,7 +19,9 @@ import { BsFilterSquare } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import { VscBellDot } from "react-icons/vsc";
 import { FaQuestionCircle } from "react-icons/fa";
+import { IoMdArrowDropdown } from "react-icons/io";
 import companyLogo from '@/public/assets/img/company/MicrosoftTeams-image (5).png';
+import { getListeClient } from "@/services/listClient-services";
 
 async function getData(): Promise<Payment[]> {
   // Fetch data from your API here.
@@ -56,9 +59,18 @@ export const payments: Payment[] = [
   },
 ];
 
-export default async function page() {
-  const data = await getData();
+export default function Page() {
 
+  const [data, setData] = useState<any[]>([]);
+  useEffect(() => {
+    getListeClient().then((res) => {
+      console.log(res?.data);
+      setData(res?.data);
+    });
+  },
+   []);
+
+  // const data = await getData();
   return (
     <div>
       <div className="w-full p-5">
@@ -139,7 +151,8 @@ export default async function page() {
           <div className=" p-2 w-1/2 flex items-center rounded-xl">
             <Select>
               <SelectTrigger className="w-[100px] text-white bg-blue-500">
-                <SelectValue placeholder="Catégories" />
+                <SelectValue placeholder="Catégories"/>
+                {/* <IoMdArrowDropdown color="white" size={500}/> */}
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
@@ -197,7 +210,7 @@ export default async function page() {
         </div>
       </div>
       <div className="container mx-auto py-10">
-        <DataTable columns={columns} data={payments} />
+        <DataTable columns={columns} data={data} />
       </div>
     </div>
   );
