@@ -27,7 +27,7 @@ import { LuFileX2 } from "react-icons/lu";
 
 import { Input } from "@/components/ui/input";
 import { getIndicateurClient } from "@/services/indicateur-services";
-import { getDetailClientPhysique } from "@/services/detailsPersonnePhysique";
+import { getDetailClientPhysique } from "@/services/details-personne-physique";
 import { truncateText } from "@/lib/utils";
 
 const columns: ColumnDef<any>[] = [
@@ -352,7 +352,8 @@ export default function Page() {
             <CardItems
               color="card5"
               title="Nombres total de prestation"
-              icon={BsClipboard}
+              icon={BsClipboard} 
+              
               total={data?.indicateurs?.nombre_total_prestations_vie}
             />
             <CardItems

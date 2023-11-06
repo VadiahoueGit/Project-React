@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IconType } from "react-icons";
 import { MdOutlineBusinessCenter } from "react-icons/md";
 import { GiRoyalLove } from "react-icons/gi";
@@ -10,8 +10,20 @@ import { BsClipboard } from "react-icons/bs";
 import { Typography } from "../../../components/ui/typography";
 import { VscBellDot } from "react-icons/vsc";
 import { FaQuestionCircle } from "react-icons/fa";
+import { getDetailContratSante } from "@/services/detail-contrat-sante-services";
 
-export default function page() {
+export default function Page() {
+  const [data, setData] = useState<any>({});
+  useEffect(() => {
+    getDetailContratSante().then((res) => {
+      console.log(res?.data);
+      setData(res?.data);
+    });
+    data.beneficiaires.map((x: any) => {
+      console.log(x);
+    });
+  }, []);
+
   return (
     <div className="w-full">
       <nav className="border-b py-4  flex items-center justify-between">
@@ -123,19 +135,19 @@ export default function page() {
                 </div>
                 <div className="">
                   <Typography className="font-bold" variant="p">
-                    NSIA RETRAITE
+                    {data?.risque}
                   </Typography>
                   <Typography
                     className="text-muted-foreground text-sm"
                     variant="p"
                   >
-                    N° POLICE : 21601906
+                    N° POLICE : {data?.numero_police}
                   </Typography>
                 </div>
               </div>
               <div className="">
                 <Typography className="text-muted-foreground pr-3" variant="p">
-                  Contrat mis en demeure
+                  {data?.statut_contrat}
                 </Typography>
               </div>
             </div>
@@ -146,19 +158,19 @@ export default function page() {
                 <Typography className="font-bold" variant="p">
                   Fractionnement
                 </Typography>
-                <Typography variant="small">Mensuelle</Typography>
+                <Typography variant="small">{data?.bareme}</Typography>
               </div>
               <div>
                 <Typography className="font-bold" variant="p">
                   Type de police
                 </Typography>
-                <Typography variant="small">Epargne individuelle</Typography>
+                <Typography variant="small">{data?.type_police}</Typography>
               </div>
               <div>
                 <Typography className="font-bold" variant="p">
                   Durée de la police
                 </Typography>
-                <Typography variant="small">10 ans</Typography>
+                <Typography variant="small">{data?.duree_police}</Typography>
               </div>
             </div>
             <div className="w-1/2 px-10 py-10 space-y-5 ">
@@ -166,24 +178,24 @@ export default function page() {
                 <Typography className="font-bold" variant="p">
                   Prime périodique
                 </Typography>
-                <Typography variant="small">10 000 fcfa</Typography>
+                <Typography variant="small">{data?.prime} fcfa</Typography>
               </div>
               <div>
                 <Typography className="font-bold" variant="p">
                   Date début
                 </Typography>
-                <Typography variant="small">01/01/2020</Typography>
+                <Typography variant="small">{data?.date_effet}</Typography>
               </div>
               <div>
                 <Typography className="font-bold" variant="p">
                   Date fin
                 </Typography>
-                <Typography variant="small">31/12/2023</Typography>
+                <Typography variant="small">{data?.date_expiration}</Typography>
               </div>
             </div>
           </div>
         </div>
-        <div className="  border">
+        <div className="border">
           <div className={cn("bg-[#0F1A3A]/10", `rounded-t-2xl px-2 py-4`)}>
             <div className=" items-center flex gap-2">
               <div
