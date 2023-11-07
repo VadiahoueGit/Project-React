@@ -37,7 +37,7 @@ export default function Page() {
           </Typography>
           <Typography variant="small">sur votre tableau de bord</Typography>
         </div>
-     
+
         <div className="flex gap-2 pr-40">
           <VscBellDot color="blue" size={20} />
           <FaQuestionCircle size={20} />
@@ -49,7 +49,7 @@ export default function Page() {
             Vue d'ensemble
           </Typography>
         </div>
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="gap-3 col-span-2 grid grid-cols-2">
             <CardItems
               url="/dashboard/clients"
@@ -88,7 +88,7 @@ export default function Page() {
                 </div>
                 <div className="">
                   <Typography className=" font-bold" variant="h2">
-                   {data?.nombre_sinistres_en_cours}
+                    {data?.nombre_sinistres_en_cours}
                   </Typography>
                 </div>
               </div>
