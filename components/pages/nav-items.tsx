@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import { Typography } from "../ui/typography";
 import { BsGrid3X3Gap } from "react-icons/bs";
 import { IconType } from "react-icons";
@@ -20,11 +20,13 @@ export default function NavItems(props: props) {
     <Link
       href={props.url ?? "/"}
       className={cn(
-        "gap-5 flex items-center rounded-md px-4 duration-300 cursor-pointer text-black",
+        "gap-5 flex items-center justify-center lg:justify-start rounded-md px-4 duration-300 cursor-pointer text-black",
         props.className
       )}
     >
-      <props.icons size={20} />
+      <div className="h-10 w-10   lg:h-5 lg:w-5 ">
+        <props.icons size={"100%"} />
+      </div>
       <Typography variant="body-base" className="hidden lg:block">
         {props.text}
       </Typography>

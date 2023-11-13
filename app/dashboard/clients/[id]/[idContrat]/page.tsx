@@ -7,22 +7,22 @@ import { MdOutlineBusinessCenter } from "react-icons/md";
 import { GiRoyalLove } from "react-icons/gi";
 import { PiHandCoins } from "react-icons/pi";
 import { BsClipboard } from "react-icons/bs";
-import { Typography } from "../../../components/ui/typography";
+import { Typography } from "../../../../../components/ui/typography";
 import { VscBellDot } from "react-icons/vsc";
 import { FaQuestionCircle } from "react-icons/fa";
 import { getDetailContratSante } from "@/services/detail-contrat-sante-services";
 
-export default function Page() {
+export default function Page({ params }: { params: { id: string, numeroContrat:string } } ) {
+  const idClient = params.id
+  const numeroContratClient = params.numeroContrat
   const [data, setData] = useState<any>({});
   useEffect(() => {
-    getDetailContratSante().then((res) => {
+    getDetailContratSante(idClient,numeroContratClient).then((res) => {
       console.log(res?.data);
       setData(res?.data);
     });
-    data.beneficiaires.map((x: any) => {
-      console.log(x);
-    });
   }, []);
+
 
   return (
     <div className="w-full">

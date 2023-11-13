@@ -35,29 +35,7 @@ async function getData(): Promise<Payment[]> {
     },
   ];
 }
-export const payments: Payment[] = [
-  {
-    id: "0002",
-    nomPrenoms: "Karamoko Vadiahoue",
-    nationality: "Ivoirienne",
-    telNumber: "0705040302",
-    anciennete: "1mois",
-  },
-  {
-    id: "0003",
-    nomPrenoms: "Karamoko Vadiahoue",
-    nationality: "Ivoirienne",
-    telNumber: "0705040302",
-    anciennete: "1mois",
-  },
-  {
-    id: "0004",
-    nomPrenoms: "Karamoko Vadiahoue",
-    nationality: "Ivoirienne",
-    telNumber: "0705040302",
-    anciennete: "1mois",
-  },
-];
+
 
 export default function Page() {
   const [data, setData] = useState<any[]>([]);

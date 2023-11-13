@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Fragment, useEffect, useState } from "react";
-import { Typography } from "../../../components/ui/typography";
+import { Typography } from "@/components/ui/typography";
 import Image from "next/image";
 import ImageClient from "@/public/assets/img/company/pexels-godisable-jacob-718978.jpg";
 import Link from "next/link";
@@ -14,8 +14,8 @@ import { PiBagSimple } from "react-icons/pi";
 import { VscBellDot, VscLocation } from "react-icons/vsc";
 import { MdOutlineBusinessCenter } from "react-icons/md";
 import CardItems from "@/components/pages/card-items";
-import { DataTable } from "../clients/data-table";
-import { Payment } from "../clients/columns";
+import { DataTable } from "../data-table";
+import { Payment } from "../columns";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { AiFillEye } from "react-icons/ai";
@@ -30,189 +30,142 @@ import { getIndicateurClient } from "@/services/indicateur-services";
 import { getDetailClientPhysique } from "@/services/details-personne-physique";
 import { truncateText } from "@/lib/utils";
 
-const columns: ColumnDef<any>[] = [
-  {
-    accessorKey: "numero_contrat",
-    header: "Numero de police",
-  },
-  {
-    accessorKey: "risque",
-    header: "Produit",
-  },
-  {
-    accessorKey: "nom_prenom_client",
-    header: "Client",
-  },
-
-  {
-    accessorKey: "date_effet",
-    header: "Date effet",
-  },
-
-  {
-    accessorKey: "date_expiration",
-    header: "Date fin",
-  },
 
 
-  {
-    id: "actions",
-    header: "Actions",
-    cell: ({ row }) => {
-      const payment = row.original;
-
-      return (
-        <Link href={"/dashboard/detail-contrat"}>
-          <Button className="flex justify-items-center gap-2 bg-[#CCD9FF]">
-            {" "}
-            <AiFillEye color="black" />{" "}
-            <Typography className="text-black font-bold" variant="small">
-              Voir
-            </Typography>
-          </Button>
-        </Link>
-      );
-    },
-  },
-];
-
-export const payments: Payment[] = [
-  {
-    id: "0002",
-    nomPrenoms: "Karamoko Vadiahoue",
-    nationality: "Ivoirienne",
-    telNumber: "0705040302",
-    anciennete: "Vie",
-  },
-  {
-    id: "0003",
-    nomPrenoms: "Goue Bi Roméo",
-    nationality: "Ivoirienne",
-    telNumber: "0784511145",
-    anciennete: "Non-vie",
-  },
-  {
-    id: "0004",
-    nomPrenoms: "Sanogo Aboudramane",
-    nationality: "Ivoirienne",
-    telNumber: "0787458742",
-    anciennete: "Non-vie",
-  },
-  {
-    id: "0005",
-    nomPrenoms: "Anicet Kacou",
-    nationality: "Ivoirienne",
-    telNumber: "0787448841",
-    anciennete: "Vie",
-  },
-  {
-    id: "0005",
-    nomPrenoms: "Serge Dele",
-    nationality: "Ivoirienne",
-    telNumber: "0763551234",
-    anciennete: "Non-Vie",
-  },
-  {
-    id: "0005",
-    nomPrenoms: "Seri Christophe",
-    nationality: "Ivoirienne",
-    telNumber: "0790808855",
-    anciennete: "Vie",
-  },
-  {
-    id: "0005",
-    nomPrenoms: "N'cho Fréjus",
-    nationality: "Ivoirienne",
-    telNumber: "0797878784",
-    anciennete: "Non-vie",
-  },
-];
-export default function Page() {
-
+export default function Page({ params }: { params: { id: string } }) {
   const [data, setData] = useState<any>();
+  const idClient = params.id
   useEffect(() => {
-    getDetailClientPhysique().then((res) => {
+    console.log(params.id);
+
+    getDetailClientPhysique(idClient).then((res) => {
       console.log(res?.data);
       setData(res?.data);
     });
   }, []);
   console.log(data);
-  
+
+  const columns: ColumnDef<any>[] = [
+    {
+      accessorKey: "numero_contrat",
+      header: "Numero de police",
+    },
+    {
+      accessorKey: "risque",
+      header: "Produit",
+    },
+    {
+      accessorKey: "nom_prenom_client",
+      header: "Client",
+    },
+
+    {
+      accessorKey: "date_effet",
+      header: "Date effet",
+    },
+
+    {
+      accessorKey: "date_expiration",
+      header: "Date fin",
+    },
+
+    {
+      id: "actions",
+      header: "Actions",
+      cell: ({ row }) => {
+        console.log(row)
+        const payment = row.original;
+
+        return (
+            <Link href={`/dashboard/clients/${idClient}/${row.original?.numero_contrat}`}>
+              <Button className="flex justify-items-center gap-2 bg-[#CCD9FF]">
+                {" "}
+                <AiFillEye color="black"/>{" "}
+                <Typography className="text-black font-bold" variant="small">
+                  Voir
+                </Typography>
+              </Button>
+            </Link>
+        );
+      },
+    },
+  ];
+
 
   return (
     <div className="w-full p-5">
-         <nav className="border-b py-4  flex items-center justify-between">
-          <div className="pl-10">
-            <Typography className="font-bold" variant="h5">
-              Détail client
-            </Typography>
+      <nav className="border-b py-4  flex items-center justify-between">
+        <div className="pl-10">
+          <Typography className="font-bold" variant="h5">
+            Détail client
+          </Typography>
 
-            <nav className="flex pt-2" aria-label="Breadcrumb">
-              <ol className="inline-flex items-center space-x-1 md:space-x-3">
-                <li className="inline-flex items-center">
+          <nav className="flex pt-2" aria-label="Breadcrumb">
+            <ol className="inline-flex items-center space-x-1 md:space-x-3">
+              <li className="inline-flex items-center">
+                <a
+                  href="#"
+                  className="inline-flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 dark:hover:text-white"
+                >
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <div className="flex items-center">
+                  <svg
+                    className="w-3 h-3 text-gray-400 mx-1"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 6 10"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m1 9 4-4-4-4"
+                    />
+                  </svg>
                   <a
                     href="#"
-                    className="inline-flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 dark:hover:text-white"
+                    className="ml-1 text-sm font-medium text-gray-500  md:ml-2 dark:text-gray-400 dark:hover:text-white"
                   >
-                    Dashboard
+                    Clients
                   </a>
-                </li>
-                <li>
-                  <div className="flex items-center">
-                    <svg
-                      className="w-3 h-3 text-gray-400 mx-1"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 6 10"
-                    >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="m1 9 4-4-4-4"
-                      />
-                    </svg>
-                    <a
-                      href="#"
-                      className="ml-1 text-sm font-medium text-gray-500  md:ml-2 dark:text-gray-400 dark:hover:text-white"
-                    >
-                      Clients
-                    </a>
-                  </div>
-                </li>
-                <li aria-current="page">
-                  <div className="flex items-center">
-                    <svg
-                      className="w-3 h-3 text-gray-400 mx-1"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 6 10"
-                    >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="m1 9 4-4-4-4"
-                      />
-                    </svg>
-                    <span className="ml-1 text-sm font-medium text-[#D89D37]  md:ml-2 dark:text-gray-400">
-                      Détail client
-                    </span>
-                  </div>
-                </li>
-              </ol>
-            </nav>
-          </div>
+                </div>
+              </li>
+              <li aria-current="page">
+                <div className="flex items-center">
+                  <svg
+                    className="w-3 h-3 text-gray-400 mx-1"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 6 10"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m1 9 4-4-4-4"
+                    />
+                  </svg>
+                  <span className="ml-1 text-sm font-medium text-[#D89D37]  md:ml-2 dark:text-gray-400">
+                    Détail client
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </nav>
+        </div>
 
-          <div className="flex gap-2 pr-40">
-            <VscBellDot color="blue" size={20} />
-            <FaQuestionCircle size={20} />
-          </div>
-        </nav>
+        <div className="flex gap-2 pr-40">
+          <VscBellDot color="blue" size={20} />
+          <FaQuestionCircle size={20} />
+        </div>
+      </nav>
       <div className=" w-full flex">
         <div className="w-3/5 h-auto">
           <div className="  flex items-center">
@@ -235,7 +188,7 @@ export default function Page() {
                 {data?.adresse}
               </Typography>
               <Typography
-                className="text-sm text-muted-foreground" 
+                className="text-sm text-muted-foreground"
                 variant="small"
               >
                 {data?.tel}
@@ -249,11 +202,15 @@ export default function Page() {
               </div>
               <div className="flex gap-2">
                 <BsBalloonHeart />
-                <Typography variant="small">{data?.statut_matrimonial}</Typography>
+                <Typography variant="small">
+                  {data?.statut_matrimonial}
+                </Typography>
               </div>
               <div className="flex gap-2">
                 <MdOutlineLocalPostOffice />
-                <Typography variant="small">{data?.email && truncateText(data?.email,15)}</Typography>
+                <Typography variant="small">
+                  {data?.email && truncateText(data?.email, 15)}
+                </Typography>
               </div>
               <div className="flex gap-2">
                 <FaBirthdayCake />
@@ -276,7 +233,9 @@ export default function Page() {
               </div>
               <div className="flex gap-2">
                 <VscLocation />
-                <Typography variant="small">{data?.lieu_de_naissance}</Typography>
+                <Typography variant="small">
+                  {data?.lieu_de_naissance}
+                </Typography>
               </div>
             </div>
           </div>
@@ -352,22 +311,18 @@ export default function Page() {
             <CardItems
               color="card5"
               title="Nombres total de prestation"
-              icon={BsClipboard} 
-              
+              icon={BsClipboard}
               total={data?.indicateurs?.nombre_total_prestations_vie}
             />
             <CardItems
               color="card6"
               title="Taux d'engagements"
               icon={FaDownLong}
-              total={(data?.indicateurs?.staturation_client)+'%'}
+              total={data?.indicateurs?.staturation_client + "%"}
             />
           </div>
         </div>
       </div>
     </div>
   );
-
- 
-  
 }
