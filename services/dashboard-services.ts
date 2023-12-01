@@ -10,7 +10,7 @@ export const getDashboardInfo = async () => {
     } else {
       throw new Error("error");
     }
-  };
+  }
 
 
 }

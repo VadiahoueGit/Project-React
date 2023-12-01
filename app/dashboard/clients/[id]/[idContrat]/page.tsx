@@ -9,8 +9,9 @@ import { PiHandCoins } from "react-icons/pi";
 import { BsClipboard } from "react-icons/bs";
 import { Typography } from "../../../../../components/ui/typography";
 import { VscBellDot } from "react-icons/vsc";
-import { FaQuestionCircle } from "react-icons/fa";
+import {FaArrowAltCircleLeft, FaQuestionCircle} from "react-icons/fa";
 import { getDetailContratSante } from "@/services/detail-contrat-sante-services";
+import HeaderItems from "@/components/pages/header-items";
 
 export default function Page({ params }: { params: { id: string, numeroContrat:string } } ) {
   const idClient = params.id
@@ -26,100 +27,8 @@ export default function Page({ params }: { params: { id: string, numeroContrat:s
 
   return (
     <div className="w-full">
-      <nav className="border-b py-4  flex items-center justify-between">
-        <div className="pl-10">
-          <Typography className="font-bold" variant="h5">
-            Détail contrat
-          </Typography>
+      <HeaderItems title="Détail contrat" icons1={FaArrowAltCircleLeft } icons2={VscBellDot} icons3={FaQuestionCircle} hideBrundcrumbs={false} />
 
-          <nav className="flex pt-2" aria-label="Breadcrumb">
-            <ol className="inline-flex items-center space-x-1 md:space-x-3">
-              <li className="inline-flex items-center">
-                <a
-                  href="#"
-                  className="inline-flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 dark:hover:text-white"
-                >
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <div className="flex items-center">
-                  <svg
-                    className="w-3 h-3 text-gray-400 mx-1"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 6 10"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="m1 9 4-4-4-4"
-                    />
-                  </svg>
-                  <a
-                    href="#"
-                    className="ml-1 text-sm font-medium text-gray-500  md:ml-2 dark:text-gray-400 dark:hover:text-white"
-                  >
-                    Clients
-                  </a>
-                </div>
-              </li>
-              <li aria-current="page">
-                <div className="flex items-center">
-                  <svg
-                    className="w-3 h-3 text-gray-400 mx-1"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 6 10"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="m1 9 4-4-4-4"
-                    />
-                  </svg>
-                  <span className="ml-1 text-sm font-medium text-gray-500  md:ml-2 dark:text-gray-400">
-                    Détail client
-                  </span>
-                </div>
-              </li>
-              <li aria-current="page">
-                <div className="flex items-center">
-                  <svg
-                    className="w-3 h-3 text-gray-400 mx-1"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 6 10"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="m1 9 4-4-4-4"
-                    />
-                  </svg>
-                  <span className="ml-1 text-sm font-medium text-[#D89D37]  md:ml-2 dark:text-gray-400">
-                    Détail contrat
-                  </span>
-                </div>
-              </li>
-            </ol>
-          </nav>
-        </div>
-
-        <div className="flex gap-2 pr-40">
-          <VscBellDot color="blue" size={20} />
-          <FaQuestionCircle size={20} />
-        </div>
-      </nav>
       <div className="px-14 py-14 gap-10 grid  grid-cols-2  ">
         <div className="  border ">
           <div className={cn("bg-[#FFA800]/20", `rounded-t-2xl px-2 py-4`)}>

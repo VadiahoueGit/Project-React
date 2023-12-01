@@ -1,4 +1,8 @@
+'use client'
+
 import React, { CSSProperties } from "react";
+
+
 import { Typography } from "../ui/typography";
 import { BsGrid3X3Gap } from "react-icons/bs";
 import { IconType } from "react-icons";
@@ -6,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import router from "next/router";
 import Link from "next/link";
+import {useStore} from "@/Store/store";
 
 interface props {
   text: string;
@@ -15,6 +20,7 @@ interface props {
 }
 
 export default function NavItems(props: props) {
+  const {isOpen,setIsOpen} = useStore<any>((state)=>state)
   console.log(props);
   return (
     <Link
@@ -24,12 +30,26 @@ export default function NavItems(props: props) {
         props.className
       )}
     >
-      <div className="h-10 w-10   lg:h-5 lg:w-5 ">
-        <props.icons size={"100%"} />
-      </div>
-      <Typography variant="body-base" className="hidden lg:block">
-        {props.text}
-      </Typography>
+      {
+        isOpen?(
+            <>
+              <div className="h-10 w-10   lg:h-5 lg:w-5 ">
+                <props.icons size={"100%"} />
+              </div>
+              <Typography variant="body-base" className="hidden lg:block">
+                {props.text}
+              </Typography>
+            </>
+        ): (
+            <>
+              <div className="h-10 w-10 ">
+                <props.icons size={"100%"} />
+              </div>
+
+            </>
+        )
+      }
+
     </Link>
   );
 }

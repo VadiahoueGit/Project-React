@@ -8,13 +8,17 @@ import { RiVoiceprintFill } from "react-icons/ri";
 import { FaMicrochip } from "react-icons/fa";
 import { FiServer } from "react-icons/fi";
 import { MdOutlineBusinessCenter } from "react-icons/md";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { LuFileX2 } from "react-icons/lu";
 import CardItems from "@/components/pages/card-items";
+import HeaderItems from "@/components/pages/header-items";
 import { clsx } from "clsx";
 import { Input } from "@/components/ui/input";
 import { VscBellDot } from "react-icons/vsc";
 import { FaQuestionCircle } from "react-icons/fa";
 import { getDashboardInfo } from "@/services/dashboard-services";
+import {useStore} from "@/Store/store";
+
 
 export default function Page() {
   const [data, setData] = useState<{
@@ -28,21 +32,14 @@ export default function Page() {
       setData(res?.data);
     });
   }, []);
+
+  const {isOpen,setIsOpen} = useStore<any>((state)=>state)
+
+console.log(isOpen)
   return (
     <>
-      <nav className="border-b py-4  flex items-center justify-between">
-        <div className="pl-10">
-          <Typography className="font-bold" variant="h5">
-            Bienvenue,
-          </Typography>
-          <Typography variant="small">sur votre tableau de bord</Typography>
-        </div>
-
-        <div className="flex gap-2 pr-40">
-          <VscBellDot color="blue" size={20} />
-          <FaQuestionCircle size={20} />
-        </div>
-      </nav>
+      <HeaderItems title = "Dashboard," subtitle="Bienvenue sur votre tableau de bord" icons1={FaArrowAltCircleLeft } icons2={VscBellDot} icons3={FaQuestionCircle} hideBrundcrumbs={true} />
+      {isOpen}
       <div className="w-full p-8 mt-7">
         <div className="py-2">
           <Typography className="font-bold" variant="p">

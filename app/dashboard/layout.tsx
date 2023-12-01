@@ -1,3 +1,5 @@
+'use client'
+
 import React, { ReactNode } from "react";
 import { BsGrid3X3Gap } from "react-icons/bs";
 import { MdPeopleAlt } from "react-icons/md";
@@ -15,31 +17,42 @@ import { Typography } from "@/components/ui/typography";
 import NavItems from "@/components/pages/nav-items";
 import { clsx } from "clsx";
 import { Input } from "@/components/ui/input";
+import {useStore} from "@/Store/store";
+import {cn} from "@/lib/utils";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
+  const {isOpen,setIsOpen} = useStore<any>((state)=>state)
+
   return (
     <div className="w-full flex">
-      <div className=" w-1/4 flex flex-col h-screen  text-center border-r">
-        <div className="mt-16 mb-20 flex justify-center">
-          <Image
-            src={companyLogo}
-            alt="logo du site"
-            className="hidden lg:block "
-            width={200}
-            height={200}
-          />
-          <Image
-            src={companyLogoNSIA}
-            alt="logo du site"
-            className="block lg:hidden "
-            width={100}
-            height={100}
-          />
-        </div>
+      <div className={cn(isOpen?"w-1/4":"w-auto", "flex flex-col h-screen  text-center border-r")}>
+        {
+            isOpen ? (
+               <div className="mt-16 mb-20 flex justify-center">
+                    <Image
+                        src={companyLogo}
+                        alt="logo du site"
+                        className={cn(isOpen?"hidden lg:block":"block lg:hidden")}
+                        width={200}
+                        height={200}
+                    />
+                  </div>
+            ): (
+                <Image
+                    src={companyLogoNSIA}
+                    alt="logo du site"
+                    className= {cn(isOpen?"block lg:hidden":"hidden lg:block")}
+                    width={100}
+                    height={100}
+                />
+            )
+        }
+
+
         <div className=" gap-6 flex flex-col h-full">
           <NavItems
             url="/dashboard"
